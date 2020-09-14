@@ -27,10 +27,10 @@ public class MainProvider {
         this.context = context;
         this.service = HttpClient.getInstance().create(MainService.class);
         this.loading = new ProgressDialog(context);
-        this.loading.setMessage("Cargando...");
     }
 
     public void getStart(MainDelegate delegate) {
+        this.loading.setMessage("Starting...");
         MainProvider.this.loading.show();
         Call<ResponseBody> call = service.start();
 
@@ -50,6 +50,7 @@ public class MainProvider {
     }
 
     public void getActivate(String statefulHash, MainDelegate delegate) {
+        this.loading.setMessage("Activating...");
         MainProvider.this.loading.show();
         Call<ResponseBody> call = service.activate(SessionManager.getInstance().sessionId, statefulHash, "name");
 
@@ -69,6 +70,7 @@ public class MainProvider {
     }
 
     public void getPayload(String url, MainDelegate delegate) {
+        this.loading.setMessage("Doing the Payload...");
         MainProvider.this.loading.show();
 
         Call<ResponseBody> call = service.payload(url, SessionManager.getInstance().sessionId);
@@ -89,6 +91,7 @@ public class MainProvider {
     }
 
     public void postReaper(String url, MainDelegate delegate) {
+        this.loading.setMessage("Uploading the Reaper...");
         MainProvider.this.loading.show();
 
         HackingHepler.copyAssets(this.context);
