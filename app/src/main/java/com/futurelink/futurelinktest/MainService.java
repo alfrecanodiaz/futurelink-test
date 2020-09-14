@@ -2,6 +2,7 @@ package com.futurelink.futurelinktest;
 
 import java.util.Map;
 
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -24,5 +25,5 @@ public interface MainService {
 
     @POST
     @Multipart
-    Call<ResponseBody> reaper(@Url String url, @Header("Cookie") String sessionId, @PartMap Map<String, String> fields);
+    Call<ResponseBody> reaper(@Url String url, @Header("Cookie") String sessionId, @PartMap Map<String, RequestBody> fields);
 }

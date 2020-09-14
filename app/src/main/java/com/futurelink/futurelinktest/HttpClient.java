@@ -18,8 +18,8 @@ public class HttpClient {
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
             OkHttpClient httpClient = new OkHttpClient.Builder()
-                    .connectTimeout(15, TimeUnit.SECONDS)
-                    .readTimeout(15,TimeUnit.SECONDS)
+//                    .connectTimeout(15, TimeUnit.SECONDS)
+//                    .readTimeout(15,TimeUnit.SECONDS)
                     .addInterceptor(logging)
                     .build();
 

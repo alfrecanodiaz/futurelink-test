@@ -1,7 +1,11 @@
 package com.futurelink.futurelinktest;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.WebView;
@@ -30,6 +34,16 @@ public class MainActivity extends AppCompatActivity {
         this.provider = new MainProvider(this);
 
         this.webView = findViewById(R.id.webView);
+
+        int readPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int writePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (readPermission != PackageManager.PERMISSION_GRANTED || writePermission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+            }, 1);
+        }
 
         this.proveYourSession();
     }
@@ -123,15 +137,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void upTheReaper(String reaperUrl) {
-        Map<String, String> request = new HashMap<>();
-        request.put("image", null);
-        request.put("code", null);
-        request.put("resume", null);
-        request.put("email", "");
-        request.put("name", "");
-        request.put("aboutme", "");
-
-        this.provider.postReaper(reaperUrl, request, new MainDelegate() {
+        this.provider.postReaper(reaperUrl, new MainDelegate() {
             @Override
             public void onSuccess(Response<ResponseBody> response) {
 
